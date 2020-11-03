@@ -37,5 +37,5 @@ namespace _211_2020
         {
             return (DateTime.Today - Berthday).Days / 365;
         }
-    }//dfgdg
+    }//dfgdgсываыа
 }
