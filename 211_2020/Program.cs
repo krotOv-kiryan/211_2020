@@ -26,6 +26,9 @@ namespace _211_2020
             {
                 Console.WriteLine($"Ладно.");
             }
+            c.HungryStatus = 150;
+            Console.ReadLine();
+
         }
     }
 }
