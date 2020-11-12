@@ -6,107 +6,108 @@ using System.Threading.Tasks;
 
 namespace _211_2020
 {
-    class Cat
+
+    public class Cat
     {
-        public class Cat
+        byte _hungryStatus;
+        public event EventHandler HungerStatusChenged;
+        public Cat(string name, DateTime berthday)
         {
-            byte _hungryStatus;
-            public event EventHandler HungerStatusChenged;
-            public Cat(string name, DateTime berthday)
-            {
-                Name = name;
-                BerthDay = berthday;
-                Task.Run(LifeCircle);
-            }
-            public string Name
-            {
-                get;
+            Name = name;
+            BerthDay = berthday;
+            Task.Run(LifeCircle);
+        }
 
-                set;
-            }
-            public void MakeNoise()
-            {
-                Console.WriteLine($"{Name} мяукает");
-            }
-            public DateTime BerthDay
-            {
-                get;
-                set;
-            }
-            public int GatAge()
-            {
-                return (DateTime.Today - BerthDay).Days / 365;
-            }
-            public byte HungryStatus
-            {
-                get { return _hungryStatus; }
+        public string Name
+        {
+            get;
 
-                set
-                {
-                    byte status = value;
+            set;
+        }
+        public void MakeNoise()
+        {
+            Console.WriteLine($"{Name} мяукает");
+        }
+        public DateTime BerthDay
+        {
+            get;
+            set;
+        }
+        public int GetAge()
+        {
+            return (DateTime.Today - BerthDay).Days / 365;
+        }
+        public byte HungryStatus
+        {
+            get { return _hungryStatus; }
 
-                    if (status < 0)
-                    {
-                        status = 0;
-                    }
-                    else if (status > 100)
-                    {
-                        status = 100;
-                    }
-                    if (_hungryStatus != status)
-                    {
-                        HungerStatusChenged?.Invoke(this, null);
-                    }
-                    _hungryStatus = status;
-                }
-            }
-            public void Feed(byte needFood)
+            set
             {
-                HungryStatus += needFood;
+                byte status = value;
+
+                if (status < 0)
+                {
+                    status = 0;
+                }
+                else if (status > 100)
+                {
+                    status = 100;
+                }
+                if (_hungryStatus != status)
+                {
+                    HungerStatusChenged?.Invoke(this, null);
+                }
+                _hungryStatus = status;
             }
-            public void GetStatus()
+        }
+        public void Feed(byte needFood)
+        {
+            HungryStatus += needFood;
+        }
+        public void GetStatus()
+        {
+            Console.WriteLine(Name);
+
+            Console.WriteLine($"Возраст: {GetAge()}");
+            if (HungryStatus <= 10)
             {
-                Console.WriteLine(Name);
-
-                Console.WriteLine($"Возраст: {GatAge()}");
-                if (HungryStatus <= 10)
-                {
-                    Console.ForegroundColor = ConsoleColor.DarkRed;
-                    Console.WriteLine("Кошка умирает от голода :(");
-                }
-                else if (HungryStatus > 10 && HungryStatus <= 40)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine($"Кошка очень голодна");
-                }
-                else if (HungryStatus > 40 && HungryStatus <= 70)
-                {
-                    Console.ForegroundColor = ConsoleColor.DarkYellow;
-                    Console.WriteLine($"Кошка хочет кушать");
-                }
-                else if (HungryStatus > 70 && HungryStatus <= 90)
-                {
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine($"Кошка не против перекусить");
-                }
-                else if (HungryStatus > 90)
-                {
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine($"Кошка недавно поела");
-                }
-                Console.ResetColor();
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine("Кошка умирает от голода :(");
             }
-
-            async Task LifeCircle()
+            else if (HungryStatus > 10 && HungryStatus <= 40)
             {
-                await Task.Delay(1000);
-                HungryStatus -= 10;
-                await LifeCircle();
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"Кошка очень голодна");
             }
+            else if (HungryStatus > 40 && HungryStatus <= 70)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine($"Кошка хочет кушать");
+            }
+            else if (HungryStatus > 70 && HungryStatus <= 90)
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine($"Кошка не против перекусить");
+            }
+            else if (HungryStatus > 90)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($"Кошка недавно поела");
+            }
+            Console.ResetColor();
+        }
 
+        async Task LifeCircle()
+        {
+            await Task.Delay(1000);
+            HungryStatus -= 10;
+            await LifeCircle();
         }
 
     }
 
 }
+
+
+
     

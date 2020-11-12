@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
+using static _211_2020.Cat_SmartHouse;
+
 namespace _211_2020
 {
     class Program
